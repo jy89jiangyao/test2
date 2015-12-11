@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="11" height="11" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="down_floor" tilewidth="32" tileheight="32" tilecount="1">
+  <image source="down_floor.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="2" name="enemy" tilewidth="32" tileheight="32" tilecount="256">
+  <image source="enemy.png" width="128" height="2048"/>
+  <tile id="0">
+   <properties>
+    <property name="enemy" value="0"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="enemy" value="1"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="enemy" value="2"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="enemy" value="4"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="enemy" value="8"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="enemy" value="9"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="enemy" value="10"/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="enemy" value="12"/>
+   </properties>
+  </tile>
+  <tile id="64">
+   <properties>
+    <property name="enemy" value="16"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="258" name="item" tilewidth="32" tileheight="32" tilecount="64">
+  <image source="item.png" width="128" height="512"/>
+  <tile id="0">
+   <properties>
+    <property name="Attack" value="3"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Defense" value="3"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="HP" value="200"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="HP" value="500"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="key" value="1"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="key" value="2"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="key" value="3"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="key" value="4"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="predict" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="322" name="terrain" tilewidth="32" tileheight="32" tilecount="2">
+  <image source="terrain.png" width="64" height="32"/>
+ </tileset>
+ <tileset firstgid="324" name="up_floor" tilewidth="32" tileheight="32" tilecount="1">
+  <image source="up_floor.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="325" name="All" tilewidth="32" tileheight="32" tilecount="1">
+  <image source="All.png" width="32" height="32"/>
+ </tileset>
+ <tileset firstgid="326" name="door" tilewidth="32" tileheight="32" tilecount="16">
+  <image source="door.png" width="128" height="128"/>
+  <tile id="0">
+   <properties>
+    <property name="door" value="0"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="door" value="1"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="door" value="2"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="door" value="3"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="342" name="hero" tilewidth="32" tileheight="32" tilecount="16">
+  <image source="hero.png" width="128" height="128"/>
+  <tile id="0">
+   <properties>
+    <property name="point" value="1"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="point" value="2"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="wall" width="11" height="11">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+323,323,323,323,323,323,323,323,323,323,0,
+0,0,0,0,0,323,0,0,0,323,0,
+0,0,0,323,0,323,0,0,0,323,0,
+323,0,323,323,0,323,323,323,0,323,0,
+0,0,0,323,0,0,0,0,0,323,0,
+0,0,0,323,0,323,323,323,323,323,0,
+323,0,323,323,0,0,0,0,0,0,0,
+0,0,0,323,323,0,323,323,323,0,323,
+0,0,0,323,0,0,0,323,0,0,0,
+0,0,0,323,0,0,0,323,0,0,0
+</data>
+ </layer>
+ <layer name="road" width="11" height="11">
+  <data encoding="csv">
+325,325,325,325,325,325,325,325,325,325,325,
+0,0,0,0,0,0,0,0,0,0,325,
+325,325,325,325,325,0,325,325,325,0,325,
+325,325,325,0,325,0,325,325,325,0,325,
+0,325,0,0,325,0,0,0,325,0,325,
+325,325,325,0,325,325,325,325,325,0,325,
+325,325,325,0,325,0,0,0,0,0,325,
+0,325,0,0,325,325,325,325,325,325,325,
+325,325,325,0,0,325,0,0,0,325,0,
+325,325,325,0,325,325,325,0,325,325,325,
+325,325,325,0,325,325,325,0,325,325,325
+</data>
+ </layer>
+ <layer name="item" width="11" height="11">
+  <data encoding="csv">
+0,0,274,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+262,0,0,0,0,0,262,274,262,0,0,
+274,0,258,0,0,0,262,274,262,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+274,0,0,0,0,0,0,0,0,0,0,
+259,0,275,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+262,263,274,0,276,0,0,0,274,0,275,
+262,300,274,0,0,0,0,0,274,274,274
+</data>
+ </layer>
+ <layer name="enemy" width="11" height="11">
+  <data encoding="csv">
+0,0,0,34,38,34,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,2,0,0,0,0,0,0,0,0,
+0,2,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,42,0,0,
+0,6,0,0,0,0,50,34,18,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,6,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,66,0,
+0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer name="upfloor" width="11" height="11">
+  <data encoding="csv">
+324,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer name="downfloor" width="11" height="11">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,1,0,0,0,0,0
+</data>
+ </layer>
+ <layer name="door" width="11" height="11">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,326,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,326,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,326,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,326,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,328,0,0,0,326,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer name="heroPoint" width="11" height="11" first="0">
+  <data encoding="csv">
+0,342,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,354,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
