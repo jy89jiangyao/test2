@@ -68,3 +68,12 @@ class Stages {
         
     }
 }
+
+extension SKLabelNode {
+    func fillTheLabel(text : String, size : CGFloat, fontName : String,pos : CGPoint) {
+        self.text = text
+        self.fontSize = size
+        self.fontName = fontName
+        self.position = pos
+    }
+}

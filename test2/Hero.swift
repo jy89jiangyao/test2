@@ -11,8 +11,14 @@ import SpriteKit
 class Hero : Tile {
     var animates = [String : [SKTexture]]()
     
+    var hrHp : Int = 0
+    var hrMp : Int = 0
+    
     override init(data: TileData, coord: CGPoint) {
         super.init(data: data, coord: coord)
+        hrHp = 1000
+        hrMp = 100
+        
         animates["down"] = [SKTexture]()
         animates["left"] = [SKTexture]()
         animates["right"] = [SKTexture]()
@@ -73,7 +79,7 @@ class Hero : Tile {
         let action = SKAction.group([imgAction,moveAction])
         self.sprite.runAction(action)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

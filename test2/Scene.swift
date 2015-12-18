@@ -10,43 +10,77 @@ import SpriteKit
 
 class Scene : SKScene , SceneDelegate {
     
-//    var tilemap2 : TileMap? = nil
+    //    var tilemap2 : TileMap? = nil
     var tileSets = [String : TileSet]()
     
     var tileMaps = [String : TileMap]()
     
     var currentMap : TileMap? = nil
     
-    var currentMapName : String = globalConst.defaultData.valueForKey("currentMap") as! String
+    var currentMapName : String? = globalConst.defaultData.valueForKey("currentMap") as? String
     
     override init() {
         super.init()
     }
     
     override init(size: CGSize) {
+        
+        
         super.init(size: size)
-//        if let tilemap = globalConst.defaultData.valueForKey("currentmap") {
-//           tilemap2 = tilemap as? TileMap
-//        }else {
+        //        if let tilemap = globalConst.defaultData.valueForKey("currentmap") {
+        //           tilemap2 = tilemap as? TileMap
+        //        }else {
         
         
         loadTileMaps(&tileMaps)
         
-//        if currentMapName != nil {
-//            currentMap = tileMaps[currentMapName as! String]!
-//        }else {
+        //        if currentMapName != nil {
+        //            currentMap = tileMaps[currentMapName as! String]!
+        //        }else {
         
-            currentMapName = globalConst.stage1.arr[1] as! String
-            globalConst.defaultData.setObject(currentMapName, forKey: "currentMap")
-            globalConst.defaultData.synchronize()
-            currentMap = tileMaps[currentMapName]
-            
-//        }
+        currentMapName = globalConst.stage1.arr[1] as? String
+        globalConst.defaultData.setObject(currentMapName, forKey: "currentMap")
+        globalConst.defaultData.synchronize()
+        currentMap = tileMaps[currentMapName!]
+        
+        //        }
         addChild(currentMap!)
-//            globalConst.defaultData.setObject(tilemap2, forKey: "currentmap")
         
-//        }
-
+        //label test
+        
+        guard let hpStr : String = String(currentMap!.getHero()!.hrHp) else{
+            fatalError("get hpStr error")
+        }
+        
+        guard let mpStr : String = String(currentMap!.getHero()!.hrMp) else{
+            fatalError("get hpStr error")
+        }
+        print(mpStr)
+        
+        let hpLabel : SKLabelNode = SKLabelNode()
+        hpLabel.fillTheLabel("我的", size: CGFloat(24), fontName: "Futura-Medium", pos: CGPoint(x: self.frame.width/4, y: 525))
+        
+        let hpValue : SKLabelNode = SKLabelNode()
+        hpValue.fillTheLabel(hpStr, size: CGFloat(24), fontName: "Futura-Medium", pos: CGPoint(x: self.frame.width/4, y: 500))
+        
+        let mpLabel : SKLabelNode = SKLabelNode()
+        mpLabel.fillTheLabel("MP", size: CGFloat(24), fontName: "Futura-Medium", pos: CGPoint(x: self.frame.width - (self.frame.width/4), y: 525))
+        
+        let mpValue : SKLabelNode = SKLabelNode()
+        mpValue.fillTheLabel(mpStr, size: CGFloat(24), fontName: "Futura-Medium", pos: CGPoint(x: self.frame.width - (self.frame.width/4), y: 500))
+        
+        addChild(hpLabel)
+        addChild(hpValue)
+        addChild(mpLabel)
+        addChild(mpValue)
+    }
+    
+    func createLabel(text : String, size : CGFloat, fontName : String,pos : CGPoint) -> SKLabelNode {
+        let label = SKLabelNode(text: text)
+        label.fontSize = size
+        label.fontName = fontName
+        label.position = pos
+        return label
     }
     
     func loadTileMaps(inout tileMaps : [String : TileMap]) {
@@ -68,7 +102,7 @@ class Scene : SKScene , SceneDelegate {
         self.backgroundColor = UIColor.grayColor()
         
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -100,26 +134,26 @@ class Scene : SKScene , SceneDelegate {
         /* Called when a touch begins */
         
         for touch in touches {
-//            globalConst.currentScene = globalConst.gsceneInstance
-//            self.view?.presentScene(globalConst.gsceneInstance, transition: SKTransition.doorsCloseHorizontalWithDuration(1) )
-//            
+            //            globalConst.currentScene = globalConst.gsceneInstance
+            //            self.view?.presentScene(globalConst.gsceneInstance, transition: SKTransition.doorsCloseHorizontalWithDuration(1) )
+            //
             var location = touch.locationInNode(self)
             print("x : \(location.x)  y : \(location.y)")
             location.y = location.y - globalConst.shiftLength
             guard let tile = currentMap?.retTileOfPos(location) else {
                 print("out of range")
-//                tilemap2?.isUp(true)
+                //                tilemap2?.isUp(true)
                 return
             }
             print(tile.name)
             
-
+            
         }
     }
     
     //SceneDelegate Function
     func changeFloor(upOrDown: Bool) {
-        guard let mapName = globalConst.stage1.findNext(upOrDown, str: currentMapName) as String? else {
+        guard let mapName = globalConst.stage1.findNext(upOrDown, str: currentMapName!) as String? else {
             print("this is the last floor in the stage")
             return
         }
@@ -128,7 +162,7 @@ class Scene : SKScene , SceneDelegate {
         self.removeChildrenInArray([currentMap!])
         globalConst.defaultData.setObject(currentMapName, forKey: "currentMap")
         globalConst.defaultData.synchronize()
-        currentMap = tileMaps[currentMapName]
+        currentMap = tileMaps[currentMapName!]
         currentMap?.isUp(upOrDown)
         self.addChild(currentMap!)
         print("floor changed")

@@ -20,11 +20,11 @@ class TileMap : SKNode {
     private var first : Int = 1  //上楼否  对应herolayer中 first属性 同为true第一个 不同第二个
     
     var sceneDelegate : SceneDelegate?
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-   
+    
     func tilePositionForCoord(coord : CGPoint) -> CGPoint{
         let x = tileSize * coord.x
         let y = tileSize * CGFloat(mapSize.height - (1 + Int(coord.y)))
@@ -42,27 +42,27 @@ class TileMap : SKNode {
         self.name = name
         createMapByTMX(filePath)
     }
-
-
+    
+    
     func createMapByTMX(filePath : String){
         guard let file = NSBundle.mainBundle().pathForResource(filePath, ofType: "tmx") else{
-           fatalError("Error: file not find")
+            fatalError("Error: file not find")
         }
         let parser = SKATMXParser(filePath:file)
         let mapDic = parser.mapDictionary
-//        print(mapDic)
+        //        print(mapDic)
         //tilesets等参数设置
         setValueByMapDic(mapDic)
-
+        
     }
-
+    
     func setValueByMapDic(mapDic : [String : AnyObject]){
         //getting additional user generated properties for map
         guard let _ = mapDic["properties"] as? [String : AnyObject] else {
             fatalError("Error: Map is missing properties values")
         }
         //            mapProperties = mapDic["properties"] as! [String : AnyObject]
-
+        
         //getting value that determines how many tiles wide the map is
         guard let width = mapDic["width"] as? Int else {
             fatalError("Error: Map is missing width value")
@@ -72,15 +72,15 @@ class TileMap : SKNode {
             fatalError("Error: Map is missing height value")
         }
         mapSize = MapSize(x: width, y: height)
-//        tiles = Array(count: mapSize.width, repeatedValue: Array(count: mapSize.height, repeatedValue: nil))
-
+        //        tiles = Array(count: mapSize.width, repeatedValue: Array(count: mapSize.height, repeatedValue: nil))
+        
         //getting value that determines the width of a tile
         guard let tileWidth = mapDic["tilewidth"] as? CGFloat else {
             fatalError("Error: Map is missing width value")
         }
         tileSize = tileWidth
-
-
+        
+        
         guard let tileSets = mapDic["tilesets"] as? [AnyObject] else{
             fatalError("Map is missing tile sets to generate map")
         }
@@ -91,7 +91,7 @@ class TileMap : SKNode {
         }
         setLayersByDic(layers)
     }
-
+    
     func setTileSetsByDic(tileSets : [AnyObject]){
         for (_, element) in tileSets.enumerate() {
             guard let tileSet = element as? [String : AnyObject] else{
@@ -101,12 +101,12 @@ class TileMap : SKNode {
             self.tileSets[ts.name] = ts
         }
     }
-
+    
     func getSingleTileSetByElement(tileSet : [String : AnyObject]) -> TileSet{
         guard let tileSetName = tileSet["name"] as? String else{
             fatalError("Error: tile width for tile set isn't set propertly")
         }
-
+        
         guard let tileSize = tileSet["tileheight"] as? CGFloat else{
             fatalError("Error: tile width for tile set isn't set propertly")
         }
@@ -168,7 +168,7 @@ class TileMap : SKNode {
                     count++
                     continue
                 }
-//                print("\(data.texture),\(layerData[count])")
+                //                print("\(data.texture),\(layerData[count])")
                 let coord =  CGPoint(x: x, y: y)
                 let tile = Tile(data: data, coord: coord)
                 tile.position = tilePositionForCoord(coord)
@@ -244,7 +244,7 @@ class TileMap : SKNode {
     
     func animateHero (direction : String) {
         var coord = self.hero?.coord
-
+        
         if direction == "down" {
             coord!.y += 1
         }else if direction == "left" {
@@ -283,6 +283,10 @@ class TileMap : SKNode {
             print("downfloor : \(downfloor.data.index)")
             self.sceneDelegate?.changeFloor(false)
         }
+    }
+    
+    func getHero() -> Hero? {
+        return self.hero
     }
 }
 
